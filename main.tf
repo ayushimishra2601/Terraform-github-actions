@@ -1,28 +1,29 @@
 terraform {
-  backend "s3" {
-    bucket     = null
-    region     = null
-    key        = null
-    access_key = null
-    secret_key = null
-  }
+    cloud {
+        organization = "firsttest-poc" /// replace with your organization name
+        workspaces {
+          name = "test-workspace" /// replace with your workspace name
+        }
+      }
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.0"
+      version = "4.12.1"
     }
   }
 }
 
-locals {
-  aws_region = "us-east-1"
+# Configure the AWS Provider
+provider "aws" {
+  region = "ap-south-1" # define region as per your account
 }
 
-##random provider
-#provider "random" {}
+resource "aws_s3_bucket" "new_bucket" {
+  bucket = "demo-github-action-tf-medium"
 
-provider "aws" {
-  region = "us-east-1"
-  #access_key = ${{ secrets.PROVIDER_AWS_ACCESS_KEY }}
-  #secret_key = ${{ secrets.PROVIDER_AWS_SECRET_KEY }}
+  object_lock_enabled = false
+
+  tags = {
+    Environment = "dev"
+  }
 }
