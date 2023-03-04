@@ -9,14 +9,18 @@ permissions:
 jobs:
   terraform:
     name: 'Terraform'
-    runs-on: ubuntu-latest
     environment: production
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
       run:
         shell: bash
-
+    env:  
+      TF_VAR_provider_aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      TF_VAR_provider_aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      
+    runs-on: ubuntu-latest  
+    
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
