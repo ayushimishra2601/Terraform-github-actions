@@ -18,7 +18,7 @@ terraform {
 provider "aws" {
 #   access_key = ${{ secrets.AWS_ACCESS_KEY_ID }}
 #   secret_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#   region = "us-east-1"# define region as per your account
+  region = "us-east-1"# define region as per your account
 }
 
 resource "aws_s3_bucket" "new_bucket" {
