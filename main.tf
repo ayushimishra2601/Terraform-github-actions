@@ -22,7 +22,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "new_bucket" {
-  bucket = "demo-github-action-tf-medium"
+  bucket = "demo-github-actionnn-tf-medium"
 
   object_lock_enabled = false
 
