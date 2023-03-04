@@ -1,0 +1,36 @@
+name: "Terraform-Plan-Infra-test"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    name: "Terraform"
+    runs-on: "ubuntu-latest"
+    env:
+      TF_VAR_provider_aws_access_key: ${{ secrets.PROVIDER_AWS_ACCESS_KEY }}
+      TF_VAR_provider_aws_secret_key: ${{ secrets.PROVIDER_AWS_SECRET_KEY }}
+
+    steps: 
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_TOKEN_APP_TERRAFORM_IO }}
+      
+      - name: Terraform format
+        run: terraform fmt -list=true -write=false -check=true -diff=true
+
+      - name: Terraform init
+        run: |
+          terraform init
+          
+      - name: Terraform validate
+        run: terraform validate
+
+      - name: Terraform plan
+        run: terraform plan
