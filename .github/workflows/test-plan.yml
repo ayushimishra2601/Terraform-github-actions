@@ -8,17 +8,11 @@ on:
 
 jobs:
   terraform:
-    name: 'Terraform'
-    environment: production
-
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
       run:
+        working-directory: ./terraform
         shell: bash
-#     env:  
-#       TF_VAR_provider_aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#       TF_VAR_provider_aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      
+    name: 'Terraform'      
     runs-on: ubuntu-latest  
     
     steps:
@@ -26,12 +20,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: "us-east-1"
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
@@ -46,8 +34,8 @@ jobs:
     - name: Terraform Plan
       run: terraform plan -input=false -lock=false
 
-      # On push to "main", build or change infrastructure according to Terraform configuration files
-      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-    - name: Terraform Apply
-      run: terraform apply -auto-approve -input=false -lock=false
+#       # On push to "main", build or change infrastructure according to Terraform configuration files
+#       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
+#     - name: Terraform Apply
+#       run: terraform apply -auto-approve -input=false -lock=false
 
