@@ -40,11 +40,7 @@ jobs:
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform init
-      run: |
-          terraform init \
-            -backend-config "bucket=${{ secrets.TERRAFORM_REMOTE_BACKEND_BUCKET }}" \
-            -backend-config "region=${{ secrets.TERRAFORM_REMOTE_BACKEND_REGION }}" \
-            -backend-config "key=${{ secrets.TF_VAR_app_name }}"
+      run:  terraform init -input=false
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
