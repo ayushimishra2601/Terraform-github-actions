@@ -2,7 +2,7 @@ terraform {
     cloud {
         organization = "firsttest-poc" /// replace with your organization name
         workspaces {
-          name = "test-workspace" /// replace with your workspace name
+          name = "stockx-workspace" /// replace with your workspace name
         }
       }
   required_version = ">= 0.13"
