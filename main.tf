@@ -24,7 +24,7 @@ provider "aws" {
 resource "aws_s3_bucket" "new_bucket" {
   bucket = "demo-github-actionnn-tf-medium"
 
-  object_lock_enabled = false
+#   object_lock_enabled = false
 
   tags = {
     Environment = "dev"
