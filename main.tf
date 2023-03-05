@@ -19,6 +19,9 @@ provider "aws" {
 #   access_key = ${{ secrets.AWS_ACCESS_KEY_ID }}
 #   secret_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   region = "us-east-1"# define region as per your account
+  assume_role {
+  role_arn = "arn:aws:iam::289955253311:role/s3role"
+  }  
 }
 
 resource "aws_s3_bucket" "new_bucket" {
